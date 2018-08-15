@@ -32,7 +32,13 @@ class TestModel(BaseModel):
         self.image_sizes = input['A_sizes']
 
         input_A = input['A']
-        self.input_A.resize_(input_A.size()).copy_(input_A)
+        # self.input_A.resize_(input_A.size()).copy_(input_A)
+
+        temp = self.input_A.clone()
+        temp.resize_(input_A.size())
+        temp.copy_(input_A)
+        self.input_A = temp
+
         self.image_paths = input['A_paths']
 
         self.size = (int(self.image_sizes[0]), int(self.image_sizes[1]))
